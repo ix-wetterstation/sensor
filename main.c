@@ -15,7 +15,7 @@
 
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 0
 #define APP_CFG_NON_CONN_ADV_TIMEOUT    0
-#define NON_CONNECTABLE_ADV_INTERVAL    MSEC_TO_UNITS(1000, UNIT_0_625_MS)
+#define NON_CONNECTABLE_ADV_INTERVAL    MSEC_TO_UNITS(10000, UNIT_0_625_MS)
 
 
 #define MEASURE_INTERVAL                MSEC_TO_UNITS(20000, 100)
@@ -124,7 +124,6 @@ void start_advertising()
 static void update_sensor(void *p)
 {
     LEDS_INVERT(BSP_LED_5_MASK);
-
     int16_t temperature = -65;
     if (!htu21_read_temperature(&temperature)) {
         temperature = -66;
@@ -135,7 +134,7 @@ static void update_sensor(void *p)
         humid = -1;
     }
     set_advertisment(temperature, -2, 98, humid);
-
+    LEDS_INVERT(BSP_LED_5_MASK);
 }
 
 
